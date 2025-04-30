@@ -33,14 +33,21 @@ const Shop = () => {
   }, [itemsPerPage]) // Re-fetch filtered items when itemsPerPage changes
 
   useEffect(() => {
-    let filtered = allItems
-
     // Filter by category
-    if (selectedCategory) {
-      filtered = filtered.filter((item) => item.category === selectedCategory)
-    }
+    let filtered = allItems;
 
+    const filter = async () => {
+    if (selectedCategory) {
+      console.log('Selected category:', selectedCategory)
+      try{
+      filtered = await fetchData(`http://localhost:3000/api/v1/meals/category/${selectedCategory}`, );
+      } catch (err) {
+        console.log("ikävä virhe: " + err.message)
+      }
+    }
+    }
     // Apply pagination (limit items per page)
+    filter();
     setFilteredItems(filtered.slice(0, itemsPerPage)) // Update filteredItems state
   }, [selectedCategory, itemsPerPage, allItems])
 
@@ -125,7 +132,7 @@ const Shop = () => {
               >
                 <option value="">Kaikki kategoriat</option>
                 {categories.map((category) => (
-                  <option key={category.id} value={category.name}>
+                  <option key={category.id} value={category.id}>
                     {category.name}
                   </option>
                 ))}
