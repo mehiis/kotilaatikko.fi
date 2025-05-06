@@ -6,7 +6,7 @@ const CarouselInfoBuyOptions = ({ items }) => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Limit items to a maximum of 5
+
   const limitedItems = items.slice(0, 5);
 
   const goToPrevious = () => {
