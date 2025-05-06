@@ -1,3 +1,36 @@
+/**
+ * @api {component} AdminAddMealPanel Admin Add Meal Panel
+ * @apiGroup AdminComponents
+ * @apiDescription A form component for administrators to add new meal packages with categories and ingredients.
+ *
+ * @apiParam {Function} onMealAdded Callback function triggered after successfully adding a new meal.
+ *
+ * @apiState {Object} formData Contains all form field values:
+ * @apiState {String} formData.mealName Name of the meal
+ * @apiState {String} formData.mealPrice Price of the meal
+ * @apiState {String} formData.mealDescription Description of the meal
+ * @apiState {String} formData.categoryName Name of the category (new or existing)
+ * @apiState {String} formData.categoryDescription Description of the category
+ * @apiState {Array} formData.ingredients Array of ingredient objects
+ * @apiState {File} formData.image Meal image file
+ *
+ * @apiState {Array} categories List of available categories from API
+ * @apiState {Array} ingredients List of available ingredients from API
+ * @apiState {Boolean} isLoadingCategories Loading state for categories
+ * @apiState {Boolean} isLoadingIngredients Loading state for ingredients
+ * @apiState {String} message Status message for user feedback
+ * @apiState {Boolean} isError Indicates if message is an error
+ * @apiState {Boolean} isSubmitting Form submission loading state
+ *
+ * @apiExample {js} Example Usage:
+ * <AdminAddMealPanel onMealAdded={refreshMealsList} />
+ *
+ * @apiSuccessExample {js} Success Response:
+ * // Calls the onMealAdded callback and shows success message
+ *
+ * @apiErrorExample {js} Error Response:
+ * // Shows error message when API calls fail
+ */
 import React, {useEffect, useState} from 'react';
 import {fetchData} from '../Utils/fetchData';
 
@@ -52,6 +85,13 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     fetchIngredients();
   }, []);
 
+  /**
+ * @api {method} handleCategorySelect Handle Category Selection
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Updates form data when an existing category is selected from dropdown.
+ *
+ * @apiParam {Event} e The change event from category select dropdown
+ */
   // Update formData when selecting existing category
   const handleCategorySelect = (e) => {
     const selectedId = e.target.value;
@@ -65,6 +105,14 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     });
   };
 
+  /**
+ * @api {method} handleIngredientSelect Handle Ingredient Selection
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Updates form data when an existing ingredient is selected from dropdown.
+ *
+ * @apiParam {Number} index Index of the ingredient in the ingredients array
+ * @apiParam {Event} e The change event from ingredient select dropdown
+ */
   // Handle ingredient selection from dropdown
   const handleIngredientSelect = (index, e) => {
     const selectedId = e.target.value;
@@ -85,6 +133,13 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     });
   };
 
+  /**
+ * @api {method} handleRemoveCategoryFromDB Remove Category from Database
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Deletes a category from the database after confirmation.
+ *
+ * @apiParam {String} categoryId ID of the category to delete
+ */
   const handleRemoveCategoryFromDB = async (categoryId) => {
     if (!window.confirm('Are you sure you want to permanently delete this category from the database?')) {
       return;
@@ -124,6 +179,15 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     }
   };
 
+
+  /**
+ * @api {method} handleRemoveIngredientFromDB Remove Ingredient from Database
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Deletes an ingredient from the database after confirmation.
+ *
+ * @apiParam {String} ingredientId ID of the ingredient to delete
+ * @apiParam {Number} index Index of the ingredient in the form
+ */
   const handleRemoveIngredientFromDB = async (ingredientId, index) => {
     if (
       !window.confirm(
@@ -173,6 +237,14 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     }
   };
 
+
+  /**
+ * @api {method} handleInputChange Handle Input Change
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Handles changes to regular form inputs.
+ *
+ * @apiParam {Event} e The change event from form input
+ */
   const handleInputChange = (e) => {
     const {name, value, files} = e.target;
 
@@ -189,6 +261,15 @@ const AdminAddMealPanel = ({onMealAdded}) => {
       });
     }
   };
+
+  /**
+ * @api {method} handleIngredientChange Handle Ingredient Input Change
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Handles changes to ingredient-specific form inputs.
+ *
+ * @apiParam {Number} index Index of the ingredient in the ingredients array
+ * @apiParam {Event} e The change event from ingredient input
+ */
   const handleIngredientChange = (index, e) => {
     const {name, value} = e.target;
     const ingredients = [...formData.ingredients];
@@ -199,6 +280,12 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     });
   };
 
+
+  /**
+ * @api {method} addIngredientField Add Ingredient Field
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Adds a new empty ingredient field to the form.
+ */
   const addIngredientField = () => {
     setFormData({
       ...formData,
@@ -209,6 +296,14 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     });
   };
 
+
+  /**
+ * @api {method} removeIngredientField Remove Ingredient Field
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Removes an ingredient field from the form.
+ *
+ * @apiParam {Number} index Index of the ingredient to remove
+ */
   const removeIngredientField = (index) => {
     const ingredients = [...formData.ingredients];
     ingredients.splice(index, 1);
@@ -218,6 +313,14 @@ const AdminAddMealPanel = ({onMealAdded}) => {
     });
   };
 
+
+  /**
+ * @api {method} handleSubmit Handle Form Submission
+ * @apiGroup AdminAddMealPanel
+ * @apiDescription Handles form submission, sends data to API, and manages state.
+ *
+ * @apiParam {Event} e The form submission event
+ */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
