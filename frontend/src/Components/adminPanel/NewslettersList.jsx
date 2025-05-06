@@ -56,13 +56,13 @@ const NewslettersList = ({newsletters, fetchNewsletters}) => {
       if (!response.ok) {
         throw new Error('Failed to fetch subscribers');
       }
-      const subscribers = await response.json();
+      await response.json();
 
       // Log subscriber emails to the console
-      console.log(
-        'Sending newsletter to the following subscribers:',
-        subscribers,
-      );
+      // console.log(
+      //   'Sending newsletter to the following subscribers:',
+      //   subscribers,
+      // );
 
       alert('Newsletter sent to subscribers successfully!');
     } catch (error) {

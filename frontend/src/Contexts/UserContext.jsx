@@ -17,7 +17,6 @@ const UserProvider = ({children}) => {
   const handleLogin = async (credentials) => {
     const loginResult = await postLogin(credentials);
     localStorage.setItem('token', loginResult.token);
-    console.log('LOGIN RESULT:', loginResult.user); // Debugging line
     setUser(loginResult.user);
     navigate('/');
   };

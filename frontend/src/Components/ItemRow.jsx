@@ -17,7 +17,7 @@ const ItemRow = ({allItems}) => {
       <img
         src={import.meta.env.VITE_IMG_SERVE_URL+item?.image}
         alt={item.name}
-        className="w-full sm:w-1/3 h-[300px] object-cover"
+        className="w-full sm:w-1/3 h-[300px] object-cover w-max-[400px] max-h-[300px] sm:max-h-[300px] sm:max-w-[400px]"
       />
       <div className="p-6 flex flex-col justify-between flex-grow relative">
         <div className="mb-4">

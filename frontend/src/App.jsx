@@ -19,7 +19,6 @@ import NotFound from './Views/NotFound';
 import Confirmation from './Views/Confirmation';
 
 function App() {
-  console.log('asd', import.meta.env.VITE_AUTH_API);
   return (
     <BrowserRouter>
       <UserProvider>

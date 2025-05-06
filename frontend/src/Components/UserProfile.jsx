@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from '../Hooks/apiHooks';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const UserProfile = () => {
   const { getUserByToken, getMyOrders } = useUser();
   const [user, setUser] = useState(null);
-  const [orders, setOrders] = useState([]); // Initialize as an empty array
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('userInfo'); // Default tab is 'userInfo'
-  const navigate = useNavigate(); // Initialize navigate
+  const [activeTab, setActiveTab] = useState('userInfo');
+
 
   // Fetch user information
   useEffect(() => {
@@ -94,12 +93,6 @@ const UserProfile = () => {
               <span className="detail-label font-bold">Tilattu uutiskirje: </span>
               <span className="detail-value">{user.subscribed ? 'Kyllä' : 'Ei'}</span>
             </div>
-            <button
-              onClick={() => navigate('/modify-account')} // Navigate to modify account page
-              className="mt-6 bg-[var(--primary-color)] text-white px-4 py-2 rounded hover:bg-opacity-90 hover:scale-105 transition-transform duration-200 font-bold"
-            >
-              Muokkaa tietoja
-            </button>
           </div>
         );
       case 'orders':
@@ -111,7 +104,7 @@ const UserProfile = () => {
                 <div key={order.order_id} className="order-item mb-4 p-4 bg-gray-100 rounded-lg shadow">
                   <p><strong>Tilausnumero:</strong> {order.order_id}</p>
                   <p><strong>Päivämäärä:</strong> {new Date(order.order_date).toLocaleDateString('fi-FI')}</p>
-                  <p><strong>Kokonais Hinta:</strong> {order.total_price} €</p>
+                  <p className=' mb-5'><strong>Hinta:</strong> {order.total_price} €</p>
                   <p><strong>Tuotteet:</strong></p>
                   <ul className="list-disc list-inside">
                     {order.meals.map((meal) => (

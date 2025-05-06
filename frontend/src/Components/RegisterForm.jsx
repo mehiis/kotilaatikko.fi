@@ -53,10 +53,10 @@ const RegisterForm = () => {
   const doRegister = async () => {
     if (!validateForm()) return;
     const isAvailable = await checkEmailAvailability(inputs.email);
-    console.log(isAvailable);
+    // console.log(isAvailable);
     if (!isAvailable) {
       setEmailAvailabilityError('Sähköposti varattu!');
-      console.log('email not available!');
+      // console.log('email not available!');
       return;
     }
     setEmailAvailabilityError('');
@@ -64,8 +64,8 @@ const RegisterForm = () => {
       const userData = {
         ...inputs,
       };
-      const userResult = await postUser(userData);
-      console.log('Registration successful:', userResult);
+      await postUser(userData);
+      // console.log('Registration successful:', userResult);
       window.alert('Rekisteröinti onnistui!');
       navigate('/');
 

@@ -61,8 +61,6 @@ const useAuthentication = () => {
       import.meta.env.VITE_AUTH_API + '/auth/login',
       fetchOptions,
     );
-    console.log('loginResult', loginResult);
-
     window.localStorage.setItem('token', loginResult.token);
 
     setIsLoggedIn(tokenInLocalStorage());
@@ -173,7 +171,7 @@ function useUser() {
         },
       };
       const response = await fetch(
-        `http://localhost:3000/api/v1/orders/user/${userId}`,
+        import.meta.env.VITE_AUTH_API + `/orders/user/${userId}`,
         fetchOptions,
       );
 

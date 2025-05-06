@@ -16,9 +16,9 @@ const AdminAddNewsletter = ({onNewsletterAdded}) => {
     if (formData.image) {
       formDataToSend.append('image', formData.image);
     }
-    console.log('FormData contents:');
+    // console.log('FormData contents:');
     for (const [key, value] of formDataToSend.entries()) {
-      console.log(`${key}:`, value);
+      // console.log(`${key}:`, value);
     }
     try {
       const response = await fetch(

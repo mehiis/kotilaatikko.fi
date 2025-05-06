@@ -87,17 +87,18 @@ const Shop = () => {
           </h1>
           <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl mt-4 md:mt-6">
             Sinun ei tarvitse enää huolehtia ruokalistan suunnittelusta tai
-            kaupasta ravaamisesta – saat kaiken valmiiksi toimitettuna. Näin
+            kaupassa ravaamisesta – saat kaiken valmiiksi toimitettuna. Näin
             voit nauttia ruoasta ilman turhaa vaivannäköä!
           </p>
         </div>
       </div>
 
       <div className="max-w-[1600px] mx-auto px-4">
+
         {/* Most Ordered Section */}
         <div className="recommended-section my-8">
           <h2 className="text-2xl font-[header] mb-4">
-            Viikon suosituin ateria
+            Tilatuin ateria tällä hetkellä
           </h2>
           {mostOrderedMeal && (
             <div className="rounded-lg shadow-md overflow-hidden flex flex-col sm:flex-row relative bg-gray-100 hover:scale-102 transition-transform duration-300">
@@ -105,9 +106,9 @@ const Shop = () => {
                 TILATUIN
               </div>
               <img
-                src={mostOrderedMeal.meal_image}
+                src={import.meta.env.VITE_IMG_SERVE_URL + mostOrderedMeal?.meal_image}
                 alt={mostOrderedMeal.meal_name}
-                className="w-full sm:w-1/3 h-[300px] object-cover"
+                className="w-full sm:w-1/3 h-[300px] object-cover w-max-[400px] max-h-[300px] sm:max-h-[300px] sm:max-w-[400px]"
               />
               <div className="p-6 flex flex-col justify-between flex-grow relative">
                 <div className="mb-4">
@@ -155,7 +156,6 @@ const Shop = () => {
           <div className="flex flex-wrap items-center justify-between mb-4">
             {/* Heading */}
             <h2 className="text-2xl font-[header]">Ateriat</h2>
-
             {/* Filter Row */}
             <div className="filter-row flex flex-wrap gap-4 items-center">
               {/* Category Filter */}

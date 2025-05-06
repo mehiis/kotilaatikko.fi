@@ -58,15 +58,15 @@ const Checkout = () => {
     }
 
     try {
-      console.log('Processing payment with:', paymentMethod);
+      // console.log('Processing payment with:', paymentMethod);
 
       if (paymentMethod === 'klarna') {
         // Klarna payment logic
-        console.log('Sending to Klarna:', {
-          items: cartItems,
-          total: cartTotal,
-          customer: customerInfo,
-        });
+        // console.log('Sending to Klarna:', {
+        //   items: cartItems,
+        //   total: cartTotal,
+        //   customer: customerInfo,
+        // });
 
         const klarnaResponse = await createKlarnaOrder({
           items: cartItems,
@@ -81,16 +81,16 @@ const Checkout = () => {
         setKlarnaSnippet(klarnaResponse.html_snippet);
       } else if (paymentMethod === 'paypal') {
         // PayPal payment logic
-        console.log('Redirecting to PayPal...');
+        // console.log('Redirecting to PayPal...');
         alert('PayPal payment is not implemented yet.');
       } else if (paymentMethod === 'dummy') {
         // Dummy payment logic
-        console.log('Processing dummy payment...');
+        // console.log('Processing dummy payment...');
 
         // Post order information to the database
-        console.log('customerInfo:', customerInfo);
-        console.log('cartItems:', cartItems);
-        console.log('cartTotal:', cartTotal);
+        // console.log('customerInfo:', customerInfo);
+        // console.log('cartItems:', cartItems);
+        // console.log('cartTotal:', cartTotal);
         const response = await fetch(
           `${import.meta.env.VITE_AUTH_API}/orders`,
           {
@@ -286,7 +286,7 @@ const Checkout = () => {
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded"
                   onClick={() => {
-                    console.log(customerInfo.country);
+                    // console.log(customerInfo.country);
                   }}
                   required
                 >

@@ -14,7 +14,7 @@ const NewsLetter = () => {
     if (user) {
       try {
         const result = await toggleSubscription();
-        console.log(result);
+        // console.log(result);
         const updatedUser = result.updatedUser;
         updateUser(updatedUser); // rerender
         setMessage(
@@ -35,8 +35,8 @@ const NewsLetter = () => {
           emailRef.current && (emailRef.current.value = '');
           return;
         }
-        const result = await subscribeAsGuest(email);
-        console.log(result);
+        await subscribeAsGuest(email);
+        // console.log(result);
         setMessage('Kiitos tilauksesta!');
         emailRef.current && (emailRef.current.value = '');
       } catch (error) {
