@@ -33,7 +33,7 @@ const CarouselInfoBuyOptions = ({ items }) => {
 
   return (
     <div
-      className="relative w-full bg-cover bg-center rounded-lg shadow-lg overflow-hidden"
+      className="relative w-full bg-cover bg-center overflow-hidden"
       style={{
         backgroundImage: `url(${import.meta.env.BASE_URL}hero-blur.jpg)`,
       }}
@@ -98,7 +98,7 @@ const CarouselInfoBuyOptions = ({ items }) => {
           )}
         </div>
 
-        <div className="relative w-full md:w-4/6 flex items-center justify-start text-left p-6 hidden md:flex">
+        <div className="relative w-full md:w-4/6 items-center justify-start text-left p-6 hidden md:flex">
           {limitedItems.map((item, index) => (
             <div
               key={index}

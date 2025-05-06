@@ -1,27 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { CarouselInfoBuyOptions } from '../Components/CarouselInfoBuyOptions.jsx';
+
+
 import Hero from '../Components/Hero.jsx';
-import { fetchData } from '../Utils/fetchData';
+
 
 const Home = () => {
-  const [allItems, setAllItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        // Fetch all items
-        const data = await fetchData(import.meta.env.VITE_AUTH_API + '/meals'); // Replace with your API endpoint
-        setAllItems(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchItems();
-  }, []);
 
   return (
     <>
@@ -77,18 +59,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Carousel Section */}
-      {loading ? (
-        <div className="flex justify-center items-center h-96">
-          <p className="text-xl text-gray-600">Ladataan ruokalistoja...</p>
-        </div>
-      ) : error ? (
-        <div className="flex justify-center items-center h-96">
-          <p className="text-xl text-red-500">Ruokalistan lataus epäonnistui</p>
-        </div>
-      ) : (
-        <CarouselInfoBuyOptions items={allItems} />
-      )}
+
     </>
   );
 };
