@@ -21,7 +21,7 @@ const ItemRow = ({allItems}) => {
 
 
       <img
-        src={'http://localhost:3000'+item?.image}
+        src={import.meta.env.VITE_IMG_SERVE_URL+item?.image}
         alt={item.name}
         className="w-full sm:w-1/3 h-[300px] object-cover"
       />

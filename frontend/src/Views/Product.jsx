@@ -50,7 +50,7 @@ const Product = () => {
       {/* Item Image */}
       <div className="flex-shrink-0">
         <img
-          src={'http://localhost:3000'+item.image}
+          src={import.meta.env.VITE_IMG_SERVE_URL+item.image}
           alt={item.name}
           className="w-full md:w-[400px] h-[300px] object-cover rounded-lg shadow-md"
         />

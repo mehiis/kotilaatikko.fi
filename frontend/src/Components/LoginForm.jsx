@@ -1,4 +1,4 @@
-import useForm from '../hooks/formHooks';
+import useForm from '../Hooks/formHooks';
 import {useNavigate} from 'react-router';
 import {useState} from 'react';
 import {useUserContext} from '../Hooks/contextHooks';

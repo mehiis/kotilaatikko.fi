@@ -24,6 +24,10 @@ newsletterRouter.route('/:email').get(handleIsSubscribed); // Check if guest use
 newsletterRouter
   .route('/modify')
   .post(
+      (req, res, next) => {
+      console.log('POST /modify route hit');
+      next();
+    },
     authenticateToken,
     adminCheck,
     uploadSingleImage('image'),

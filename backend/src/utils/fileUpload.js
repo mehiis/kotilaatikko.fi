@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 // Configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log('Saving file to:', path.join(__dirname, '../../public/uploads/'));
     cb(null, path.join(__dirname, '../../public/uploads/'));
   },
   filename: (req, file, cb) => {

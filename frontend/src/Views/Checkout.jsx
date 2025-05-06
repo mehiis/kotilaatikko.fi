@@ -376,7 +376,7 @@ const Checkout = () => {
               <div key={item.id} className="py-4 flex justify-between">
                 <div className="flex items-center space-x-4">
                   <img
-                    src={'http://localhost:3000' + item.image}
+                    src={import.meta.env.VITE_IMG_SERVE_URL+item.image}
                     alt={item.name}
                     className="w-16 h-16 object-cover rounded"
                   />

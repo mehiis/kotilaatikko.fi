@@ -29,7 +29,7 @@ const CartDropdown = () => {
                 {cartItems.map(item => (
                   <li key={item.id} className="flex justify-between items-center border-b pb-4">
                     <div className="flex items-center space-x-4">
-                      <img src={'http://localhost:3000'+item?.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                      <img src={import.meta.env.VITE_IMG_SERVE_URL+item?.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
                       <div>
                         <h3 className="font-medium">{item.name}</h3>
                         <p className="text-gray-600">€{Number(item.price).toFixed(2)}</p>
