@@ -1,3 +1,27 @@
+/**
+ * @api {component} Profile Profile View
+ * @apiGroup UserComponents
+ * @apiDescription The profile page that displays different views based on user type (admin or regular user).
+ *
+ * @apiState {Array} meals List of meal packages
+ * @apiState {Boolean} isLoading Loading state for meals data
+ * @apiState {String|null} error Error message for meals fetching
+ * @apiState {String} activeTab Currently active admin tab ('mealPackages', 'orderTracking', or 'newsletter')
+ * @apiState {Array} newsletters List of newsletters (admin only)
+ *
+ * @apiExample {js} Example Usage:
+ * <Profile />
+ *
+ * @apiSuccessExample {js} Admin View:
+ * // Shows admin tabs with meal management, order tracking, and newsletter tools
+ *
+ * @apiSuccessExample {js} Regular User View:
+ * // Shows standard user profile information
+ *
+ * @apiErrorExample {js} Error Response:
+ * // Shows error message when data fetching fails
+ */
+
 import React, {useEffect, useState} from 'react';
 import UserProfile from '../Components/UserProfile';
 import AdminAddMealPanel from '../Components/AdminAddMealPanel';
@@ -16,6 +40,15 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState('mealPackages');
   const [newsletters, setNewsletters] = useState([]);
 
+
+  /**
+ * @api {method} fetchMeals Fetch Meals
+ * @apiGroup Profile
+ * @apiDescription Fetches all meal packages from the API.
+ *
+ * @apiSuccess {Array} meals Updates meals state with fetched data
+ * @apiError {String} error Sets error message if fetch fails
+ */
   const fetchMeals = async () => {
     try {
       const data = await fetchData(import.meta.env.VITE_AUTH_API + '/meals');
@@ -27,6 +60,15 @@ const Profile = () => {
     }
   };
 
+
+  /**
+ * @api {method} fetchNewsletters Fetch Newsletters
+ * @apiGroup Profile
+ * @apiDescription Fetches all newsletters from the API (admin only).
+ *
+ * @apiSuccess {Array} newsletters Updates newsletters state with fetched data
+ * @apiError {String} error Logs error if fetch fails
+ */
   const fetchNewsletters = async () => {
     try {
       const response = await fetch(
@@ -55,14 +97,38 @@ const Profile = () => {
     }
   }, []);
 
+  /**
+ * @api {method} handleMealAdded Handle Meal Added
+ * @apiGroup Profile
+ * @apiDescription Refreshes meals list after a new meal is added.
+ */
   const handleMealAdded = () => {
     fetchMeals(); // Refresh the list when a new meal is added
   };
 
+
+  /**
+ * @api {method} handleMealDeleted Handle Meal Deleted
+ * @apiGroup Profile
+ * @apiDescription Removes a deleted meal from the local state.
+ *
+ * @apiParam {Number} id ID of the deleted meal
+ */
   const handleMealDeleted = (id) => {
     setMeals((prevMeals) => prevMeals.filter((meal) => meal.id !== id));
   };
 
+
+  /**
+ * @api {method} renderTabContent Render Tab Content
+ * @apiGroup Profile
+ * @apiDescription Renders the appropriate content based on active tab.
+ *
+ * @apiSuccess {Component} Returns component for the active tab:
+ * - 'mealPackages': Shows meal management panel
+ * - 'orderTracking': Shows order tracking component
+ * - 'newsletter': Shows newsletter management tools
+ */
   const renderTabContent = () => {
     switch (activeTab) {
       case 'mealPackages':

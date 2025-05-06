@@ -1,3 +1,37 @@
+/**
+ * @api {component} Checkout Checkout View
+ * @apiGroup StoreComponents
+ * @apiDescription The checkout page where customers enter their information and complete purchases.
+ *
+ * @apiState {Object} customerInfo Contains all customer information fields:
+ * @apiState {String} customerInfo.firstName Customer's first name
+ * @apiState {String} customerInfo.lastName Customer's last name
+ * @apiState {String} customerInfo.email Customer's email address
+ * @apiState {String} customerInfo.address Customer's street address
+ * @apiState {String} customerInfo.postalCode Customer's postal code
+ * @apiState {String} customerInfo.city Customer's city
+ * @apiState {String} customerInfo.country Customer's country (default: 'Finland')
+ * @apiState {String} customerInfo.phone Customer's phone number
+ *
+ * @apiState {String} paymentMethod Selected payment method ('klarna', 'paypal', or 'dummy')
+ * @apiState {Boolean} isProcessing Indicates if payment is being processed
+ * @apiState {String} error Error message for checkout process
+ * @apiState {String} klarnaSnippet HTML snippet for Klarna checkout iframe
+ * @apiState {Object} user Logged-in user data
+ * @apiState {Boolean} loadingUser Loading state for user data
+ * @apiState {String} userError Error message for user data loading
+ *
+ * @apiExample {js} Example Usage:
+ * <Checkout />
+ *
+ * @apiSuccessExample {js} Success Response:
+ * // For Klarna: Renders Klarna checkout iframe
+ * // For Dummy: Redirects to confirmation page
+ *
+ * @apiErrorExample {js} Error Response:
+ * // Shows error message when validation fails or payment processing errors occur
+ */
+
 import React, {useState} from 'react';
 import {useCart} from '../Contexts/CartContext';
 import {useUser} from '../Hooks/apiHooks'; // Import your user hook
@@ -28,11 +62,33 @@ const Checkout = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState(null);
 
+
+
+/**
+ * @api {method} handleInputChange Handle Input Change
+ * @apiGroup Checkout
+ * @apiDescription Updates customerInfo state when form inputs change.
+ *
+ * @apiParam {Event} e The input change event
+ */
   const handleInputChange = (e) => {
     const {name, value} = e.target;
     setCustomerInfo((prev) => ({...prev, [name]: value}));
   };
 
+
+  /**
+ * @api {method} handleSubmit Handle Form Submission
+ * @apiGroup Checkout
+ * @apiDescription Processes the checkout form submission based on selected payment method.
+ *
+ * @apiParam {Event} e The form submission event
+ *
+ * @apiSuccess {String} klarnaSnippet Sets Klarna checkout HTML if Klarna is selected
+ * @apiSuccess {Redirect} /confirmation Redirects to confirmation page for dummy payments
+ *
+ * @apiError {String} error Shows validation or payment processing errors
+ */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
@@ -136,6 +192,17 @@ const Checkout = () => {
     );
   }
 
+
+  /**
+ * @api {method} fetchUserData Fetch User Data
+ * @apiGroup Checkout
+ * @apiDescription Fetches logged-in user data and populates the form fields.
+ *
+ * @apiSuccess {Object} user Sets user data in state
+ * @apiSuccess {Object} customerInfo Populates form with user data
+ *
+ * @apiError {String} userError Shows error if user data fetch fails
+ */
   const fetchUserData = async () => {
     setLoadingUser(true);
     setUserError(null);
