@@ -1,3 +1,17 @@
+/**
+ * @api {component} ItemRow Item Row Component
+ * @apiGroup StoreComponents
+ * @apiDescription Displays a list of meal items with add-to-cart functionality.
+ *
+ * @apiParam {Array} allItems Array of meal items to display
+ *
+ * @apiExample {js} Example Usage:
+ * <ItemRow allItems={filteredItems} />
+ *
+ * @apiSuccessExample {js} Success Response:
+ * // Renders a card for each meal item with image, details, and action buttons
+ */
+
 import React from 'react'
 import { useCart } from '../Contexts/CartContext';
 import { useNavigate } from 'react-router'; // Import useNavigate

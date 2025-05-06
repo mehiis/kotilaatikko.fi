@@ -1,3 +1,27 @@
+/**
+ * @api {component} Shop Shop View
+ * @apiGroup StoreComponents
+ * @apiDescription The main shop page displaying meal packages with filtering and pagination options.
+ *
+ * @apiState {Array} allItems Complete list of all meal items
+ * @apiState {Array} filteredItems Currently displayed items after filtering/pagination
+ * @apiState {Array} categories Available meal categories
+ * @apiState {String} selectedCategory Currently selected category filter
+ * @apiState {Number} itemsPerPage Number of items displayed per page
+ * @apiState {Object|null} mostOrderedMeal The most frequently ordered meal
+ * @apiState {Boolean} loading Data loading state
+ * @apiState {String|null} error Error message if data fetching fails
+ *
+ * @apiExample {js} Example Usage:
+ * <Shop />
+ *
+ * @apiSuccessExample {js} Success Response:
+ * // Displays hero banner, most ordered meal section, and filtered meal items
+ *
+ * @apiErrorExample {js} Error Response:
+ * // Shows error message when data fetching fails
+ */
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router'; // Import useNavigate
 import { useCart } from '../Contexts/CartContext'; // Import useCart
@@ -17,6 +41,15 @@ const Shop = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const { addToCart } = useCart(); // Initialize addToCart from CartContext
 
+  /**
+ * @api {effect} useEffect Data Fetching Effect
+ * @apiGroup Shop
+ * @apiDescription Fetches initial data when component mounts and when itemsPerPage changes.
+ * Fetches:
+ * - All meal items
+ * - Categories
+ * - Most ordered meal
+ */
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -45,6 +78,12 @@ const Shop = () => {
     fetchItems();
   }, [itemsPerPage]); // Re-fetch filtered items when itemsPerPage changes
 
+
+  /**
+ * @api {effect} useEffect Filtering Effect
+ * @apiGroup Shop
+ * @apiDescription Filters and paginates items when selectedCategory, itemsPerPage or allItems changes.
+ */
   useEffect(() => {
     let filtered = allItems;
 
